@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ملوسک | اخبار ایران، جهان، فناوری و انرژی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700;800&family=Vazirmatn:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --paper:#faf9f6; --ink:#141414; --muted:#6b6b6b; --line:#e2e0da; --red:#a3172c;
+    --tag-iran:#a3172c; --tag-war:#28425c; --tag-tech:#1f5f4a; --tag-energy:#8a5a12;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background:var(--bg); color:var(--ink); font-family:'Vazirmatn', sans-serif; }
+  h1,h2,h3{ font-family:'Noto Serif', 'Vazirmatn', serif; }
+  .mono{ font-family:'JetBrains Mono', monospace; direction:ltr; display:inline-block; }
+  a{ color:inherit; text-decoration:none; }
+
+  .utility-bar{ background:var(--ink); color:#cfcfcf; font-size:11.5px; padding:6px 0; }
+  .utility-inner{ max-width:1200px; margin:0 auto; padding:0 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; }
+  .live-dot{ display:inline-flex; align-items:center; gap:6px; color:#e7c5c5; }
+  .live-dot span.pulse{ width:6px; height:6px; border-radius:50%; background:var(--red); box-shadow:0 0 0 rgba(163,23,44,.6); animation:pulse 1.8s infinite; }
+  @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(163,23,44,.55);} 70%{box-shadow:0 0 0 6px rgba(163,23,44,0);} 100%{box-shadow:0 0 0 0 rgba(163,23,44,0);} }
+
+  .masthead{ max-width:1200px; margin:0 auto; padding:22px 20px 14px; text-align:center; border-bottom:3px solid var(--ink); }
+  .logo{ font-size:44px; font-weight:800; letter-spacing:1px; }
+  .logo em{ color:var(--red); font-style:normal; }
+  .tagline{ font-size:12.5px; color:var(--muted); margin-top:4px; letter-spacing:.5px; }
+
+  nav.section-nav{ background:var(--red); position:sticky; top:0; z-index:30; }
+  .nav-inner{ max-width:1200px; margin:0 auto; padding:0 20px; display:flex; gap:2px; overflow-x:auto; }
+  .nav-inner a{ color:#fff; font-size:13.5px; font-weight:600; padding:12px 16px; white-space:nowrap; border-bottom:3px solid transparent; }
+  .nav-inner a:hover{ background:rgba(255,255,255,.12); border-bottom-color:#fff; }
+
+  .ticker-wrap{ background:var(--paper); border-bottom:1px solid var(--line); display:flex; overflow:hidden; }
+  .ticker-label{ background:var(--ink); color:#fff; font-size:12px; font-weight:700; padding:8px 16px; white-space:nowrap; flex-shrink:0; display:flex; align-items:center; }
+  .ticker-track-outer{ overflow:hidden; flex:1; }
+  .ticker-track{ display:inline-flex; white-space:nowrap; animation:scroll-rtl 60s linear infinite; padding:8px 0; }
+  .ticker-wrap:hover .ticker-track{ animation-play-state:paused; }
+  @keyframes scroll-rtl{ 0%{transform:translateX(0);} 100%{transform:translateX(-100%);} }
+  .ticker-item{ padding:0 22px; font-size:13px; border-left:1px solid var(--line); }
+
+  main{ max-width:1200px; margin:0 auto; padding:0 20px 60px; }
+  .section-block{ padding:34px 0 10px; border-bottom:1px solid var(--line); }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:18px; gap:10px; flex-wrap:wrap; }
+  .section-head .tag{ font-size:11px; font-weight:700; color:#fff; padding:3px 10px; border-radius:2px; margin-inline-end:10px; }
+  .section-head h2{ display:inline; font-size:24px; font-weight:700; margin:0; }
+
+  .section-grid{ display:grid; grid-template-columns:1.15fr 1fr; gap:28px; }
+  @media (max-width:820px){ .section-grid{ grid-template-columns:1fr; } }
+
+  .lead-card{ border-bottom:1px solid var(--line); padding-bottom:18px; }
+  .lead-card .kicker{ font-size:11.5px; color:var(--muted); margin-bottom:8px; }
+  .lead-card h3{ font-size:25px; line-height:1.45; font-weight:700; margin:0 0 10px; }
+  .lead-card h3:hover{ color:var(--red); }
+  .lead-card p.dek{ font-size:14.5px; color:#3d3d3d; line-height:1.75; margin:0; }
+
+  .headline-list{ list-style:none; margin:0; padding:0; }
+  .headline-list li{ padding:13px 0; border-bottom:1px solid var(--line); display:flex; gap:12px; }
+  .headline-list li:last-child{ border-bottom:none; }
+  .headline-list .idx{ font-family:'Noto Serif',serif; font-weight:700; font-size:20px; color:#cfcac0; flex-shrink:0; width:22px; }
+  .headline-list .txt h4{ margin:0 0 5px; font-size:15px; font-weight:600; line-height:1.6; }
+  .headline-list .txt h4:hover{ color:var(--red); }
+  .headline-list .txt .meta{ font-size:11.5px; color:var(--muted); }
+
+  footer{ max-width:1200px; margin:10px auto 0; padding:26px 20px 50px; color:var(--muted); font-size:11.5px; text-align:center; line-height:1.9; border-top:1px solid var(--line); }
+  footer .fname{ color:var(--red); font-weight:700; }
+</style>
+</head>
+<body>
+
+<div class="utility-bar">
+  <div class="utility-inner">
+    <span class="mono" id="updated">در حال بارگذاری…</span>
+    <span class="live-dot"><span class="pulse"></span>به‌روزرسانی خودکار هر ساعت</span>
+  </div>
+</div>
+
+<div class="masthead">
+  <div class="logo">مل<em>وسک</em></div>
+  <div class="tagline">اخبار ایران · جبهه جنگ روسیه–اوکراین · فناوری · انرژی</div>
+</div>
+
+<nav class="section-nav">
+  <div class="nav-inner">
+    <a href="#sec-iran">ایران</a>
+    <a href="#sec-war">جنگ روسیه و اوکراین</a>
+    <a href="#sec-tech">تکنولوژی</a>
+    <a href="#sec-energy">انرژی</a>
+  </div>
+</nav>
+
+<div class="ticker-wrap">
+  <div class="ticker-label">آخرین تیترها</div>
+  <div class="ticker-track-outer"><div class="ticker-track" id="ticker"></div></div>
+</div>
+
+<main>
+  <section class="section-block" id="sec-iran">
+    <div class="section-head"><div><span class="tag" style="background:var(--tag-iran)">ایران</span><h2>اخبار ایران</h2></div></div>
+    <div class="section-grid" id="grid-iran"></div>
+  </section>
+
+  <section class="section-block" id="sec-war">
+    <div class="section-head"><div><span class="tag" style="background:var(--tag-war)">جهان</span><h2>جنگ روسیه و اوکراین</h2></div></div>
+    <div class="section-grid" id="grid-war"></div>
+  </section>
+
+  <section class="section-block" id="sec-tech">
+    <div class="section-head"><div><span class="tag" style="background:var(--tag-tech)">فناوری</span><h2>تکنولوژی</h2></div></div>
+    <div class="section-grid" id="grid-tech"></div>
+  </section>
+
+  <section class="section-block" id="sec-energy">
+    <div class="section-head"><div><span class="tag" style="background:var(--tag-energy)">انرژی</span><h2>انرژی</h2></div></div>
+    <div class="section-grid" id="grid-energy"></div>
+  </section>
+</main>
+
+<footer>
+  <span class="fname">ملوسک</span> یک تجمیع‌کنندهٔ خبری است؛ محتوای اصلی متعلق به رسانه‌های منتشرکننده است. داده‌ها هر ساعت به‌صورت خودکار توسط یک GitHub Action به‌روزرسانی می‌شوند.
+</footer>
+
+<script>
+  const SECTIONS = ['iran', 'war', 'tech', 'energy'];
+
+  function escapeHtml(s){
+    return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function timeAgo(dateStr){
+    const d = new Date(dateStr);
+    if (isNaN(d)) return '';
+    const diffMin = Math.floor((Date.now() - d.getTime())/60000);
+    if (diffMin < 1) return 'همین حالا';
+    if (diffMin < 60) return diffMin + ' دقیقه پیش';
+    const diffH = Math.floor(diffMin/60);
+    if (diffH < 24) return diffH + ' ساعت پیش';
+    return Math.floor(diffH/24) + ' روز پیش';
+  }
+
+  function renderSection(key, list){
+    const gridEl = document.getElementById('grid-' + key);
+    if (!list || !list.length){
+      gridEl.innerHTML = '<div style="padding:16px 0;color:var(--muted);font-size:13px;">فعلاً خبری برای این بخش ذخیره نشده.</div>';
+      return;
+    }
+    const lead = list[0];
+    const rest = list.slice(1, 7);
+    gridEl.innerHTML = `
+      <div class="lead-card">
+        <div class="kicker">${escapeHtml(lead.source)} · ${timeAgo(lead.pubDate)}</div>
+        <a href="${lead.link}" target="_blank" rel="noopener noreferrer"><h3>${escapeHtml(lead.title)}</h3></a>
+        ${lead.description ? `<p class="dek">${escapeHtml(lead.description)}</p>` : ''}
+      </div>
+      <ul class="headline-list">
+        ${rest.map((it, i) => `
+          <li>
+            <span class="idx">${String(i+2).padStart(2,'0')}</span>
+            <div class="txt">
+              <a href="${it.link}" target="_blank" rel="noopener noreferrer"><h4>${escapeHtml(it.title)}</h4></a>
+              <div class="meta">${escapeHtml(it.source)} · ${timeAgo(it.pubDate)}</div>
+            </div>
+          </li>
+        `).join('')}
+      </ul>
+    `;
+  }
+
+  function renderTicker(data){
+    const all = SECTIONS.flatMap(k => (data[k] || []).slice(0, 4));
+    if (!all.length) return;
+    const html = all.map(it => `<span class="ticker-item"><b>${escapeHtml(it.title)}</b></span>`).join('');
+    document.getElementById('ticker').innerHTML = html + html;
+  }
+
+  async function load(){
+    try{
+      const res = await fetch('data/news.json?t=' + Date.now());
+      const data = await res.json();
+      SECTIONS.forEach(k => renderSection(k, data[k]));
+      renderTicker(data);
+      const gen = new Date(data.generated_at);
+      const fmt = new Intl.DateTimeFormat('fa-IR', { timeZone:'Asia/Tehran', dateStyle:'medium', timeStyle:'short' });
+      document.getElementById('updated').textContent = 'آخرین به‌روزرسانی: ' + (isNaN(gen) ? '—' : fmt.format(gen));
+      document.getElementById('updated').classList.remove('mono');
+    }catch(err){
+      document.getElementById('updated').textContent = 'خطا در بارگذاری داده‌ها';
+      console.error(err);
+    }
+  }
+
+  load();
+</script>
+
+</body>
+</html>
