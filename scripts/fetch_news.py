@@ -14,10 +14,12 @@ from datetime import datetime, timezone
 from urllib.request import urlopen, Request
 
 FEEDS = {
-    "iran": "https://news.google.com/rss/search?q=%D8%A7%DB%8C%D8%B1%D8%A7%D9%86+%D8%A7%D8%AE%D8%A8%D8%A7%D8%B1&hl=fa&gl=IR&ceid=IR:fa",
-    "war": "https://news.google.com/rss/search?q=%D8%AC%D9%86%DA%AF+%D8%B1%D9%88%D8%B3%DB%8C%D9%87+%D8%A7%D9%88%DA%A9%D8%B1%D8%A7%DB%8C%D9%86&hl=fa&gl=IR&ceid=IR:fa",
-    "tech": "https://news.google.com/rss/search?q=%D8%AA%DA%A9%D9%86%D9%88%D9%84%D9%88%DA%98%DB%8C&hl=fa&gl=IR&ceid=IR:fa",
-    "energy": "https://news.google.com/rss/search?q=%D8%A7%D9%86%D8%B1%DA%98%DB%8C+%D9%86%D9%81%D8%AA+%DA%AF%D8%A7%D8%B2&hl=fa&gl=IR&ceid=IR:fa",
+    # کوتیشن دور عبارت‌ها باعث می‌شود گوگل‌نیوز عبارت را عیناً جست‌وجو کند
+    # (match دقیق‌تر)، به‌جای اینکه هر کلمه را جدا و با OR در نظر بگیرد.
+    "iran": 'https://news.google.com/rss/search?q=%22%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%22&hl=fa&gl=IR&ceid=IR:fa',
+    "war": 'https://news.google.com/rss/search?q=%22%D8%B1%D9%88%D8%B3%DB%8C%D9%87%22+%22%D8%A7%D9%88%DA%A9%D8%B1%D8%A7%DB%8C%D9%86%22&hl=fa&gl=IR&ceid=IR:fa',
+    "tech": 'https://news.google.com/rss/search?q=%22%D8%AA%DA%A9%D9%86%D9%88%D9%84%D9%88%DA%98%DB%8C%22&hl=fa&gl=IR&ceid=IR:fa',
+    "energy": 'https://news.google.com/rss/search?q=%22%D8%A7%D9%86%D8%B1%DA%98%DB%8C%22&hl=fa&gl=IR&ceid=IR:fa',
 }
 
 OUTPUT_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "news.json")
@@ -29,7 +31,13 @@ def strip_html(raw: str) -> str:
 
 
 def fetch_feed(url: str, limit: int = 12):
-    req = Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; MalusakBot/1.0)"})
+    req = Request(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0 (compatible; MalusakBot/1.0)",
+            "Accept-Language": "fa-IR,fa;q=0.9,en;q=0.1",
+        },
+    )
     with urlopen(req, timeout=20) as resp:
         raw = resp.read()
     root = ET.fromstring(raw)
